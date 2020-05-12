@@ -1,14 +1,18 @@
-const API_KEY = "5d37c97fc3af8a768ac640d3231e92ac-us18";
-const AID = "beaa8c12af";
+const config=require("./config");
 const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
 
+//App Variables
 const Local_Port = 3002;
 const Prod_Port = process.env.PORT;
+const API_KEY = config.API_KEY;
+const AID = config.AID;
+const mailchimp_URL = "https://us18.api.mailchimp.com/3.0"; //replace X with number in API-key https://usX.api.mailchimp.com/3.0"
+
+
 const app = express();
 
-const mailchimp_URL = "https://us18.api.mailchimp.com/3.0"; //replace X with number in API-key https://usX.api.mailchimp.com/3.0"
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //serve static files i.e images
@@ -62,5 +66,5 @@ app.post("/failure", (req, res) => {
   res.redirect("/");
 });
 app.listen(Prod_Port || Local_Port, () => {
-  console.log("Server is up and Running");
+  console.log("Server is Up and Running");
 });
